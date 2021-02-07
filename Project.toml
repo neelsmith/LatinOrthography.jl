@@ -1,4 +1,4 @@
-name = "Latin"
+name = "LatinOrthography"
 uuid = "1e3032c9-fa1e-4efb-a2df-a06f238f6146"
 authors = ["nsmith "]
 version = "0.1.0"

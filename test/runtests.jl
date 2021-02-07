@@ -1,4 +1,4 @@
-using Latin
+using LatinOrthography
 using Test
 using Orthography
 
@@ -26,13 +26,13 @@ end
 end
 
 @testset "Test punctuation classification" begin
-    @test Latin.isPunctuation(":")
-    @test Latin.isPunctuation("a:") == false
+    @test LatinOrthography.isPunctuation(":")
+    @test LatinOrthography.isPunctuation("a:") == false
 end
 
 @testset "Test alphabetic classification" begin
-    @test Latin.isAlphabetic("Hercules")
-    @test Latin.isAlphabetic("Hercules?") == false
+    @test LatinOrthography.isAlphabetic("Hercules")
+    @test LatinOrthography.isAlphabetic("Hercules?") == false
 end
 
 

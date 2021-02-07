@@ -1,4 +1,4 @@
-module Latin
+module LatinOrthography
 
 
 using Documenter, DocStringExtensions
