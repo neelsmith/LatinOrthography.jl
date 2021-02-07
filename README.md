@@ -1,3 +1,3 @@
-# Latin.jl
+# LatinOrthography.jl
 
 A Julia package for working with texts in Latin.
