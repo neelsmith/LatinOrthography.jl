@@ -1,5 +1,3 @@
-
-
 """
 An orthographic system for encoding Latin with a 23-character alphabet.
 `i` and `u` represent both vocalic and semi-vocalic or consonantal values.
@@ -10,6 +8,30 @@ struct Latin23 <: OrthographicSystem
     tokenizer
 end
 
+
+"""Implement `codepoints` function of MID `OrthographicSystem` interface.
+
+$(SIGNATURES)
+"""
+function codepoints(ortho::Latin23)
+    ortho.codepoints
+end
+
+"""Implement `tokentypes` function of MID `OrthographicSystem` interface.
+
+$(SIGNATURES)
+"""
+function tokentypes(ortho::Latin23)
+    ortho.tokencategories
+end
+
+
+
+
+"""Define range of alphabetic characters.
+
+$(SIGNATURES)
+"""
 function alphabetic() 
     ranges = [
         'a':'i' ; 'k':'u'; 'x':'z';
@@ -18,13 +40,29 @@ function alphabetic()
     join(ranges,"")
 end
 
+
+"""Define recognized punctuation characters.
+
+$(SIGNATURES)
+"""
 function punctuation()
     ".,;:?"
 end
 
 
 
-"Split off any trailing punctuation and return an Array of leading strim + trailing punctuation."
+"""Define recognized whitespace characters.
+
+$(SIGNATURES)
+"""
+function whitespace()
+    " \n\t"
+end
+
+"""Split off any trailing punctuation and return an Array of leading strim + trailing punctuation.
+
+$(SIGNATURES)
+"""
 function splitPunctuation(s::AbstractString)
     punct = Orthography.collecttail(s, LatinOrthography.punctuation())
     trimmed = Orthography.trimtail(s, LatinOrthography.punctuation())
@@ -32,9 +70,12 @@ function splitPunctuation(s::AbstractString)
 end
 
 
-"Instantiate a Latin23 with correct code points and token types."
+"""Instantiate a Latin23 with correct code points and token types.
+
+$(SIGNATURES)
+"""
 function latin23()
-    cps = alphabetic() * punctuation()
+    cps = alphabetic() * punctuation() *  whitespace()
     ttypes = [
         Orthography.LexicalToken,
         #Orthography.NumericToken,
@@ -44,7 +85,11 @@ function latin23()
 end
 
 
-"Create correct `OrthographicToken` for a given string."
+"""Create correct `OrthographicToken` for a given string.
+
+
+$(SIGNATURES)
+"""
 function tokenforstring(s::AbstractString)
     #if isNumeric(s)
     #    OrthographicToken(s, NumericToken())
@@ -57,7 +102,10 @@ function tokenforstring(s::AbstractString)
     end
 end
 
-"Tokenize Latin text."
+"""Tokenize Latin text.
+
+$(SIGNATURES)
+"""
 function tokenizeLatin(s::AbstractString)
     wsdelimited = split(s)
     depunctuated = map(s -> splitPunctuation(s), wsdelimited)
@@ -66,7 +114,10 @@ function tokenizeLatin(s::AbstractString)
 end
 
 
-"True if all characters in s are alphabetic."
+"""True if all characters in s are alphabetic.
+
+$(SIGNATURES)
+"""
 function isAlphabetic(s::AbstractString)
     chlist = split(s,"")
     alphas =  alphabetic()
@@ -79,7 +130,10 @@ function isAlphabetic(s::AbstractString)
     !nogood
 end
 
-"True if all characters in s are punctuatoin."
+"""True if all characters in s are punctuation.
+$(SIGNATURES)
+
+"""
 function isPunctuation(s::AbstractString)::Bool
     chlist = split(s,"")
     puncts =  punctuation()
