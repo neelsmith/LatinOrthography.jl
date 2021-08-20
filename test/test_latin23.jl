@@ -43,3 +43,27 @@ end
     @test tkns[end].tokencategory == Orthography.PunctuationToken()
 end
 
+
+@testset "Test tokenizing a CitableNode" begin
+    ortho = latin23()
+
+    urn = CtsUrn("urn:cts:latinLit:stoa1263.stoa001.hc:30pr.1")
+    txt = "Infans cum esset, dracones duos duabus manibus necauit, quos Iuno miserat, unde primigenius est dictus."
+    cn = CitableNode(urn,txt)
+    tkns = tokenize(ortho, cn)
+    @test length(tkns) == 19
+end
+
+@testset "Test tokenizing a CitableTextCorpus" begin
+    urn = CtsUrn("urn:cts:latinLit:stoa1263.stoa001.hc:30pr.1")
+    txt = "Infans cum esset, dracones duos duabus manibus necauit, quos Iuno miserat, unde primigenius est dictus."
+    cn1 = CitableNode(urn,txt)
+    cn2 = CitableNode(CtsUrn("urn:cts:latinLit:stoa1263.stoa001.hc:30pr.2"), "Leonem Nemeum, quem Luna nutrierat in antro amphistomo atrotum, necauit, cuius pellem pro tegumento habuit.")
+    c = CitableTextCorpus([cn1, cn2])
+
+
+    ortho = latin23()
+    tkns = tokenize(ortho, c)
+    @test length(tkns) == 38
+end
+#
