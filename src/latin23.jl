@@ -2,10 +2,21 @@
 An orthographic system for encoding Latin with a 23-character alphabet.
 `i` and `u` represent both vocalic and semi-vocalic or consonantal values.
 """    
-struct Latin23 <: OrthographicSystem
+struct Latin23 <: LatinOrthographicSystem
     codepoints
     tokencategories
     tokenizer
+end
+
+
+OrthographyTrait(::Type{Latin23}) = IsOrthographicSystem()
+
+"""Implement Orthography's tokenize function for `Latin23`.
+
+$(SIGNATURES)    
+"""    
+function tokenize(s::AbstractString, o::Latin23)
+    tokenizeLatin23(s)
 end
 
 
@@ -81,7 +92,7 @@ function latin23()
         #Orthography.NumericToken,
         Orthography.PunctuationToken,
     ]
-    Latin23(cps, ttypes, tokenizeLatin)
+    Latin23(cps, ttypes, tokenizeLatin23)
 end
 
 
@@ -106,7 +117,7 @@ end
 
 $(SIGNATURES)
 """
-function tokenizeLatin(s::AbstractString)
+function tokenizeLatin23(s::AbstractString)
     wsdelimited = split(s)
     depunctuated = map(s -> splitPunctuation(s), wsdelimited)
     tknstrings = collect(Iterators.flatten(depunctuated))
