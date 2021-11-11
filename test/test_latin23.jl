@@ -23,13 +23,13 @@ end
 end
 
 @testset "Test punctuation classification" begin
-    @test LatinOrthography.isPunctuation(":")
-    @test LatinOrthography.isPunctuation("a:") == false
+    @test LatinOrthography.isPunctuation(":", latin23())
+    @test LatinOrthography.isPunctuation("a:", latin23()) == false
 end
 
 @testset "Test alphabetic classification" begin
-    @test LatinOrthography.isAlphabetic("Hercules")
-    @test LatinOrthography.isAlphabetic("Hercules?") == false
+    @test LatinOrthography.isAlphabetic("Hercules", latin23())
+    @test LatinOrthography.isAlphabetic("Hercules?", latin23()) == false
 end
 
 
