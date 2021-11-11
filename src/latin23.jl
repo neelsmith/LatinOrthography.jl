@@ -116,10 +116,6 @@ function tokenizeLatin23(s::AbstractString)
     tkns = map(t -> tokenforstring(t, latin23()), tknstrings)
 end
 
-function tokenize(s::AbstractString, ortho::Latin23)
-    tokenizeLatin23(s)
-end
-
 """True if all characters in s are alphabetic.
 
 $(SIGNATURES)
