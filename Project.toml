@@ -13,6 +13,7 @@ Orthography = "0b4c9448-09b0-4e78-95ea-3eb3328be36d"
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
 
 [compat]
+CitableBase = "10"
 CitableCorpus = "0.12"
 CitableText = "0.15"
 DocStringExtensions = "0.8"
