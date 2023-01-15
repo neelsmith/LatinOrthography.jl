@@ -1,3 +1,4 @@
+
 """
 An orthographic system for encoding Latin with a 23-character alphabet.
 `i` and `u` represent both vocalic and semi-vocalic or consonantal values.
@@ -89,17 +90,19 @@ function latin23whitespace()
     " \n\t"
 end
 
+
 """Instantiate a Latin23 with correct code points and token types.
 
 $(SIGNATURES)
 """
 function latin23()
 
-    cps = latin23alphabet() * latin23punctuation() *  latin23whitespace()
+    cps = latin23alphabet() * latin23punctuation() *  latin23whitespace() * "+"
     ttypes = [
         Orthography.LexicalToken,
         #Orthography.NumericToken,
         Orthography.PunctuationToken,
+        EncliticToken
     ]
     Latin23(cps, ttypes, tokenizeLatin23)
 end
@@ -111,8 +114,20 @@ $(SIGNATURES)
 """
 function tokenizeLatin23(s::AbstractString)
     wsdelimited = split(s)
-    depunctuated = map(s -> splitPunctuation(s, latin23()), wsdelimited)
-    tknstrings = collect(Iterators.flatten(depunctuated))
+    
+    depunctuated = map(nows -> splitPunctuation(nows, latin23()), wsdelimited) |> Iterators.flatten |>  collect 
+    
+    tknstrings = []
+    for depunctedstr in depunctuated
+        parts = split(depunctedstr, "+")
+        if length(parts) == 2
+            push!(tknstrings, parts[1])
+            push!(tknstrings, string("+", parts[2]))
+        else
+            push!(tknstrings, depuncted)
+        end
+      
+    end
     tkns = map(t -> tokenforstring(t, latin23()), tknstrings)
 end
 
