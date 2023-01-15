@@ -124,7 +124,7 @@ function tokenizeLatin23(s::AbstractString)
             push!(tknstrings, parts[1])
             push!(tknstrings, string("+", parts[2]))
         else
-            push!(tknstrings, depuncted)
+            push!(tknstrings, depunctedstr)
         end
       
     end
