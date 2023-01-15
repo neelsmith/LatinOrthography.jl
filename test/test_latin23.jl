@@ -8,7 +8,7 @@ end
 @testset "Test token types" begin
     latin = latin23()
     ttypes = tokentypes(latin)
-    @test length(ttypes) == 2
+    @test length(ttypes) == 3
 end
 
 @testset "Test valid character test" begin
@@ -66,4 +66,15 @@ end
     tkns = tokenize(c, ortho)
     @test length(tkns) == 38
 end
-#
+
+
+@testset "Test tokenizing enclitics" begin
+    s = "Electra ubi audiuit id, truncum ardentem ex ara sustulit uoluit+que inscia sorori Iphigeniae oculos eruere, nisi Orestes interuenisset."
+    tkns = tokenize(s, latin23())
+    @test tkns[11].text == "uoluit"
+    @test tkns[11].tokencategory isa LexicalToken
+    @test tkns[12].text == "que"
+    @test tkns[12].tokencategory isa EncliticToken
+    
+end
+
