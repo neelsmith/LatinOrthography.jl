@@ -12,6 +12,7 @@ export LatinOrthographicSystem
 
 export Latin23, latin23
 export Latin24, latin24
+export Latin25, latin25
 export codepoints, tokentypes, tokenize
 export alphabetic, punctuation, whitespace
 
@@ -24,5 +25,6 @@ include("orthography.jl")
 include("common.jl")
 include("latin23.jl")
 include("latin24.jl")
+include("latin25.jl")
 
 end # module
