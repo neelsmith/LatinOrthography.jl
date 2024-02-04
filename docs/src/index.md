@@ -29,7 +29,7 @@ codepoints(ortho)
 tokentypes(ortho)
 ```
 
-These give us (for free!) implementations of the `OrthographicSystem`'s `validchar` and `validstring` functions.
+These give us (for free!) implementations of the `OrthographicSystem`'s `validcp` and `validstring` functions.
 
 ```@example intro
 using Orthography
