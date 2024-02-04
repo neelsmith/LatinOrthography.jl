@@ -40,7 +40,7 @@ end
 $(SIGNATURES)
 """
 function alphabetic(ortho::Latin25) 
-   latinalphabet() 
+   latin25alphabet() 
 end
 
 
