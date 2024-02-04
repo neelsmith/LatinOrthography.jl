@@ -1,7 +1,7 @@
 name = "LatinOrthography"
 uuid = "1e3032c9-fa1e-4efb-a2df-a06f238f6146"
 authors = ["nsmith "]
-version = "0.6.0"
+version = "0.7.0"
 
 [deps]
 CitableBase = "d6f014bd-995c-41bd-9893-703339864534"
@@ -15,8 +15,8 @@ Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
 [compat]
 CitableBase = "10"
 CitableCorpus = "0.13"
-CitableText = "0.15"
+CitableText = "0.16"
 DocStringExtensions = "0.9"
-Documenter = "0.27"
-Orthography = "0.17, 0.18"
+Documenter = "1"
+Orthography = "0.21"
 julia = "1"

@@ -13,8 +13,8 @@ end
 
 @testset "Test valid character test" begin
     latin = latin23()
-    @test_broken validchar(latin, "i")
-    @test_broken validchar(latin, "j") == false
+    @test validcp("i", latin)
+    @test validcp("j", latin) == false
 end
 
 @testset "Test valid string test" begin

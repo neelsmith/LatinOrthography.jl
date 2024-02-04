@@ -1,29 +1,29 @@
 
 """
-An orthographic system for encoding Latin with a 23-character alphabet.
-`i` and `u` represent both vocalic and semi-vocalic or consonantal values.
+An orthographic system for encoding Latin with a 25-character alphabet.
+`i` and `u`  represents both vocalic values whie `j` and `v` are used for consonantal values.
 """    
-struct Latin23 <: LatinOrthographicSystem
+struct Latin25 <: LatinOrthographicSystem
     codepoints
     tokencategories
     tokenizer
 end
 
-OrthographyTrait(::Type{Latin23}) = IsOrthographicSystem()
+OrthographyTrait(::Type{Latin25}) = IsOrthographicSystem()
 
-"""Implement Orthography's tokenize function for `Latin23`.
+"""Implement Orthography's tokenize function for `Latin25`.
 
 $(SIGNATURES)    
 """    
-function tokenize(s::AbstractString, o::Latin23)
-    tokenizeLatin23(s)
+function tokenize(s::AbstractString, o::Latin25)
+    tokenizeLatin25(s)
 end
 
 """Implement `codepoints` function of MID `OrthographicSystem` interface.
 
 $(SIGNATURES)
 """
-function codepoints(ortho::Latin23)
+function codepoints(ortho::Latin25)
     ortho.codepoints
 end
 
@@ -31,65 +31,67 @@ end
 
 $(SIGNATURES)
 """
-function tokentypes(ortho::Latin23)
+function tokentypes(ortho::Latin25)
     ortho.tokencategories
 end
 
-"""Define range of alphabetic character for Latin23 orthography.
+"""Define range of alphabetic character for Latin25 orthography.
 
 $(SIGNATURES)
 """
-function alphabetic(ortho::Latin23) 
-   latin23alphabet() 
+function alphabetic(ortho::Latin25) 
+   latinalphabet() 
 end
 
 
-"""Define range of alphabetic character for Latin23 orthography.
+"""Define range of alphabetic character for Latin25 orthography.
 
 $(SIGNATURES)
 """
-function latin23alphabet()
+function latin25alphabet()
     ranges = [
-        'a':'i' ; 'k':'u'; 'x':'z';
-        'A':'I' ; 'K':'U'; 'X':'Z';
+        'a':'j' ; 'k':'v'; 'x':'z';
+        'A':'J' ; 'K':'V'; 'X':'Z';
     ]
     join(ranges,"")
 end
 
 
 
-"""Define recognized punctuation characters for Latin23 orthography.
+
+
+"""Define recognized punctuation characters for Latin orthographies.
 
 $(SIGNATURES)
 """
-function punctuation(ortho::Latin23)
-    latinpunctuation()
-end
-
-
-
-"""Define recognized punctuation characters for Latin23 orthography.
-
-$(SIGNATURES)
-"""
-function whitespace(ortho::Latin23)
+function whitespace(ortho::Latin25)
     latinwhitespace()
 end
 
-"""Instantiate a Latin23 with correct code points and token types.
+
+
+"""Instantiate a Latin25 with correct code points and token types.
 
 $(SIGNATURES)
 """
-function latin23()
+function latin25()
 
-    cps = latin23alphabet() * latinpunctuation() *  latinwhitespace() * "+"
+    cps = latin25alphabet() * latinpunctuation() *  latinwhitespace() * "+"
     ttypes = [
         Orthography.LexicalToken,
         #Orthography.NumericToken,
         Orthography.PunctuationToken,
         EncliticToken
     ]
-    Latin23(cps, ttypes, tokenizeLatin23)
+    Latin25(cps, ttypes, tokenizeLatin25)
+end
+
+"""Define recognized punctuation characters for Latin orthographies.
+
+$(SIGNATURES)
+"""
+function punctuation(ortho::Latin25)
+    latinpunctuation()
 end
 
 
@@ -97,10 +99,10 @@ end
 
 $(SIGNATURES)
 """
-function tokenizeLatin23(s::AbstractString)
+function tokenizeLatin25(s::AbstractString)
     wsdelimited = split(s)
     
-    depunctuated = map(nows -> splitPunctuation(nows, latin23()), wsdelimited) |> Iterators.flatten |>  collect 
+    depunctuated = map(nows -> splitPunctuation(nows, latin25()), wsdelimited) |> Iterators.flatten |>  collect 
     
     tknstrings = []
     for depunctedstr in depunctuated
@@ -113,16 +115,14 @@ function tokenizeLatin23(s::AbstractString)
         end
       
     end
-    tkns = map(t -> tokenforstring(t, latin23()), tknstrings)
+    tkns = map(t -> tokenforstring(t, latin25()), tknstrings)
 end
-
-
 
 """True if all characters in s are alphabetic.
 
 $(SIGNATURES)
 """
-function isAlphabetic(s::AbstractString, ortho::Latin23) 
+function isAlphabetic(s::AbstractString, ortho::Latin25) 
     #chlist = split(s,"")
     alphas =  alphabetic(ortho)
     tfs = []
@@ -138,7 +138,7 @@ end
 $(SIGNATURES)
 
 """
-function isPunctuation(s::AbstractString, ortho::Latin23)::Bool
+function isPunctuation(s::AbstractString, ortho::Latin25)::Bool
     #chlist = split(s,"")
     puncts =  punctuation(ortho)
     tfs = []
