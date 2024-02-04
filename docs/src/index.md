@@ -33,11 +33,11 @@ These give us (for free!) implementations of the `OrthographicSystem`'s `validch
 
 ```@example intro
 using Orthography
-validchar(ortho, "a")
+validp("a", ortho)
 ```
 
 ```@example intro
-validchar(ortho, "β")
+validcp("β", ortho)
 ```
 
 ```@example intro
